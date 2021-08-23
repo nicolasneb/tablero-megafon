@@ -22,21 +22,31 @@ byte scoreboardRight = 0;
 CRGB scoreboardColorLeft = CRGB::Green;
 CRGB scoreboardColorRight = CRGB::Red;
 CRGB alternateColor = CRGB::Black; 
-long numbers[] = {
-  0b000111111111111111111,  // [0] 0
-  0b000111000000000000111,  // [1] 1
-  0b111111111000111111000,  // [2] 2
-  0b111111111000000111111,  // [3] 3
-  0b111111000111000000111,  // [4] 4
-  0b111000111111000111111,  // [5] 5
-  0b111000111111111111111,  // [6] 6
-  0b000111111000000000111,  // [7] 7
-  0b111111111111111111111,  // [8] 8
-  0b111111111111000111111,  // [9] 9
-  0b000000000000000000000,  // [10] off
-  0b111111111111000000000,  // [11] degrees symbol
-  0b000000111111111111000,  // [12] C(elsius)
-  0b111000111111111000000,  // [13] F(ahrenheit)
+//String numbers[] = {
+//  "000111111111111111111",  // [0] 0
+//  "000111000000000000111",  // [1] 1
+//  "11111111100011111100",  // [2] 2
+//  "111111111000000111111",  // [3] 3
+//  "111111000111000000111",  // [4] 4
+//  "111000111111000111111",  // [5] 5
+//  "111000111111111111111",  // [6] 6
+//  "000111111000000000111",  // [7] 7
+//  "111111111111111111111",  // [8] 8
+//  "111111111111000111111",  // [9] 9
+//  "000000000000000000000",  // [10] off
+//};
+String numbers[] = {
+  "111111111111111111000",  // [0] 0
+  "111000000000000111000",  // [1] 1
+  "000111111000111111111",  // [2] 2
+  "111111000000111111111",  // [3] 3
+  "111000000111000111111",  // [4] 4
+  "111111000111111000111",  // [5] 5
+  "111111111111111000111",  // [6] 6
+  "111000000000111111000",  // [7] 7
+  "111111111111111111111",  // [8] 8
+  "111111000111111111111",  // [9] 9
+  "000000000000000000000",  // [10] off
 };
 
 void setup() {
@@ -60,383 +70,8 @@ void setup() {
 
 void loop() {
   CRGB color = CRGB(r_val, g_val, b_val);
-//  displayNumber(8,0,color);
-//  LEDs[18] = CRGB::Red;
-//  LEDs[19] = CRGB::Black;
-//  LEDs[20] = CRGB::Red;  
-//  updateCountdown();
-  displayNumbers(9,0);
+  displayNumber(9,0,color);
   FastLED.show();
-  delay(2000);
-  displayNumbers(8,0);
-  FastLED.show();
-  delay(2000);
-  displayNumbers(7,0);
-  FastLED.show();
-  delay(2000);
-  displayNumbers(6,0);
-  FastLED.show();
-  delay(2000);
-  displayNumbers(5,0);
-  FastLED.show();
-  delay(2000);
-  displayNumbers(4,0);
-  FastLED.show();
-  delay(2000);
-  displayNumbers(3,0);
-  FastLED.show();
-  delay(2000);
-  displayNumbers(2,0);
-  FastLED.show();
-  delay(2000);
-  displayNumbers(1,0);
-  FastLED.show();
-  delay(2000);
-  displayNumbers(0,0);
-  FastLED.show();
-  delay(2000);
-}
-
-void displayNumbers(byte number, byte segment){
-  byte startindex = 0;
-  switch (segment) {
-    case 0:
-      startindex = 0;
-      break;
-    case 1:
-      startindex = 21;
-      break;
-    case 2:
-      startindex = 44;
-      break;
-    case 3:
-      startindex = 65;
-      break;    
-  }
-
-   switch (number) {
-    case 0:
-      // set de leds 1
-      LEDs[0 + startindex] = CRGB::Red;
-      LEDs[1 + startindex] = CRGB::Red;
-      LEDs[2 + startindex] = CRGB::Red;
-      // set de leds 2
-      LEDs[3 + startindex] = CRGB::Red;
-      LEDs[4 + startindex] = CRGB::Red;
-      LEDs[5 + startindex] = CRGB::Red; 
-      // set de leds 3
-      LEDs[6 + startindex] = CRGB::Red;
-      LEDs[7 + startindex] = CRGB::Red;
-      LEDs[8 + startindex] = CRGB::Red; 
-      // set de leds 4
-      LEDs[9 + startindex] = CRGB::Red;
-      LEDs[10 + startindex] = CRGB::Red;
-      LEDs[11 + startindex] = CRGB::Red; 
-      // set de leds 5
-      LEDs[12 + startindex] = CRGB::Red;
-      LEDs[13 + startindex] = CRGB::Red;
-      LEDs[14 + startindex] = CRGB::Red; 
-      // set de leds 6
-      LEDs[15 + startindex] = CRGB::Red;
-      LEDs[16 + startindex] = CRGB::Red;
-      LEDs[17 + startindex] = CRGB::Red; 
-      // set de leds 7
-      LEDs[18 + startindex] = CRGB::Black;
-      LEDs[19 + startindex] = CRGB::Black;
-      LEDs[20 + startindex] = CRGB::Black;  
-      break;
-    case 1:
-      // set de leds 1
-      LEDs[0 + startindex] = CRGB::Red;
-      LEDs[1 + startindex] = CRGB::Red;
-      LEDs[2 + startindex] = CRGB::Red;
-      // set de leds 2
-      LEDs[3 + startindex] = CRGB::Black;
-      LEDs[4 + startindex] = CRGB::Black;
-      LEDs[5 + startindex] = CRGB::Black; 
-      // set de leds 3
-      LEDs[6 + startindex] = CRGB::Black;
-      LEDs[7 + startindex] = CRGB::Black;
-      LEDs[8 + startindex] = CRGB::Black; 
-      // set de leds 4
-      LEDs[9 + startindex] = CRGB::Black;
-      LEDs[10 + startindex] = CRGB::Black;
-      LEDs[11 + startindex] = CRGB::Black; 
-      // set de leds 5
-      LEDs[12 + startindex] = CRGB::Black;
-      LEDs[13 + startindex] = CRGB::Black;
-      LEDs[14 + startindex] = CRGB::Black; 
-      // set de leds 6
-      LEDs[15 + startindex] = CRGB::Red;
-      LEDs[16 + startindex] = CRGB::Red;
-      LEDs[17 + startindex] = CRGB::Red; 
-      // set de leds 7
-      LEDs[18 + startindex] = CRGB::Black;
-      LEDs[19 + startindex] = CRGB::Black;
-      LEDs[20 + startindex] = CRGB::Black;
-      break;
-    case 2:
-      LEDs[0 + startindex] = CRGB::Black;
-      LEDs[1 + startindex] = CRGB::Black;
-      LEDs[2 + startindex] = CRGB::Black;
-      // set de leds 2
-      LEDs[3 + startindex] = CRGB::Red;
-      LEDs[4 + startindex] = CRGB::Red;
-      LEDs[5 + startindex] = CRGB::Red; 
-      // set de leds 3
-      LEDs[6 + startindex] = CRGB::Red;
-      LEDs[7 + startindex] = CRGB::Red;
-      LEDs[8 + startindex] = CRGB::Red; 
-      // set de leds 4
-      LEDs[9 + startindex] = CRGB::Black;
-      LEDs[10 + startindex] = CRGB::Black;
-      LEDs[11 + startindex] = CRGB::Black; 
-      // set de leds 5
-      LEDs[12 + startindex] = CRGB::Red;
-      LEDs[13 + startindex] = CRGB::Red;
-      LEDs[14 + startindex] = CRGB::Red; 
-      // set de leds 6
-      LEDs[15 + startindex] = CRGB::Red;
-      LEDs[16 + startindex] = CRGB::Red;
-      LEDs[17 + startindex] = CRGB::Red; 
-      // set de leds 7
-      LEDs[18 + startindex] = CRGB::Red;
-      LEDs[19 + startindex] = CRGB::Red;
-      LEDs[20 + startindex] = CRGB::Red;
-      break;
-    case 3:
-      LEDs[0 + startindex] = CRGB::Red;
-      LEDs[1 + startindex] = CRGB::Red;
-      LEDs[2 + startindex] = CRGB::Red;
-      // set de leds 2
-      LEDs[3 + startindex] = CRGB::Red;
-      LEDs[4 + startindex] = CRGB::Red;
-      LEDs[5 + startindex] = CRGB::Red; 
-      // set de leds 3
-      LEDs[6 + startindex] = CRGB::Black;
-      LEDs[7 + startindex] = CRGB::Black;
-      LEDs[8 + startindex] = CRGB::Black; 
-      // set de leds 4
-      LEDs[9 + startindex] = CRGB::Black;
-      LEDs[10 + startindex] = CRGB::Black;
-      LEDs[11 + startindex] = CRGB::Black; 
-      // set de leds 5
-      LEDs[12 + startindex] = CRGB::Red;
-      LEDs[13 + startindex] = CRGB::Red;
-      LEDs[14 + startindex] = CRGB::Red; 
-      // set de leds 6
-      LEDs[15 + startindex] = CRGB::Red;
-      LEDs[16 + startindex] = CRGB::Red;
-      LEDs[17 + startindex] = CRGB::Red; 
-      // set de leds 7
-      LEDs[18 + startindex] = CRGB::Red;
-      LEDs[19 + startindex] = CRGB::Red;
-      LEDs[20 + startindex] = CRGB::Red;
-      break;
-    case 4:
-      LEDs[0 + startindex] = CRGB::Red;
-      LEDs[1 + startindex] = CRGB::Red;
-      LEDs[2 + startindex] = CRGB::Red;
-      // set de leds 2
-      LEDs[3 + startindex] = CRGB::Black;
-      LEDs[4 + startindex] = CRGB::Black;
-      LEDs[5 + startindex] = CRGB::Black; 
-      // set de leds 3
-      LEDs[6 + startindex] = CRGB::Black;
-      LEDs[7 + startindex] = CRGB::Black;
-      LEDs[8 + startindex] = CRGB::Black; 
-      // set de leds 4
-      LEDs[9 + startindex] = CRGB::Red;
-      LEDs[10 + startindex] = CRGB::Red;
-      LEDs[11 + startindex] = CRGB::Red; 
-      // set de leds 5
-      LEDs[12 + startindex] = CRGB::Black;
-      LEDs[13 + startindex] = CRGB::Black;
-      LEDs[14 + startindex] = CRGB::Black; 
-      // set de leds 6
-      LEDs[15 + startindex] = CRGB::Red;
-      LEDs[16 + startindex] = CRGB::Red;
-      LEDs[17 + startindex] = CRGB::Red; 
-      // set de leds 7
-      LEDs[18 + startindex] = CRGB::Red;
-      LEDs[19 + startindex] = CRGB::Red;
-      LEDs[20 + startindex] = CRGB::Red;
-      break;
-    case 5:
-      LEDs[0 + startindex] = CRGB::Red;
-      LEDs[1 + startindex] = CRGB::Red;
-      LEDs[2 + startindex] = CRGB::Red;
-      // set de leds 2
-      LEDs[3 + startindex] = CRGB::Red;
-      LEDs[4 + startindex] = CRGB::Red;
-      LEDs[5 + startindex] = CRGB::Red; 
-      // set de leds 3
-      LEDs[6 + startindex] = CRGB::Black;
-      LEDs[7 + startindex] = CRGB::Black;
-      LEDs[8 + startindex] = CRGB::Black; 
-      // set de leds 4
-      LEDs[9 + startindex] = CRGB::Red;
-      LEDs[10 + startindex] = CRGB::Red;
-      LEDs[11 + startindex] = CRGB::Red; 
-      // set de leds 5
-      LEDs[12 + startindex] = CRGB::Red;
-      LEDs[13 + startindex] = CRGB::Red;
-      LEDs[14 + startindex] = CRGB::Red; 
-      // set de leds 6
-      LEDs[15 + startindex] = CRGB::Black;
-      LEDs[16 + startindex] = CRGB::Black;
-      LEDs[17 + startindex] = CRGB::Black; 
-      // set de leds 7
-      LEDs[18 + startindex] = CRGB::Red;
-      LEDs[19 + startindex] = CRGB::Red;
-      LEDs[20 + startindex] = CRGB::Red;
-      break;
-    case 6:
-      LEDs[0 + startindex] = CRGB::Red;
-      LEDs[1 + startindex] = CRGB::Red;
-      LEDs[2 + startindex] = CRGB::Red;
-      // set de leds 2
-      LEDs[3 + startindex] = CRGB::Red;
-      LEDs[4 + startindex] = CRGB::Red;
-      LEDs[5 + startindex] = CRGB::Red; 
-      // set de leds 3
-      LEDs[6 + startindex] = CRGB::Red;
-      LEDs[7 + startindex] = CRGB::Red;
-      LEDs[8 + startindex] = CRGB::Red; 
-      // set de leds 4
-      LEDs[9 + startindex] = CRGB::Red;
-      LEDs[10 + startindex] = CRGB::Red;
-      LEDs[11 + startindex] = CRGB::Red; 
-      // set de leds 5
-      LEDs[12 + startindex] = CRGB::Red;
-      LEDs[13 + startindex] = CRGB::Red;
-      LEDs[14 + startindex] = CRGB::Red; 
-      // set de leds 6
-      LEDs[15 + startindex] = CRGB::Black;
-      LEDs[16 + startindex] = CRGB::Black;
-      LEDs[17 + startindex] = CRGB::Black; 
-      // set de leds 7
-      LEDs[18 + startindex] = CRGB::Red;
-      LEDs[19 + startindex] = CRGB::Red;
-      LEDs[20 + startindex] = CRGB::Red;
-      break;
-    case 7:
-      LEDs[0 + startindex] = CRGB::Red;
-      LEDs[1 + startindex] = CRGB::Red;
-      LEDs[2 + startindex] = CRGB::Red;
-      // set de leds 2
-      LEDs[3 + startindex] = CRGB::Black;
-      LEDs[4 + startindex] = CRGB::Black;
-      LEDs[5 + startindex] = CRGB::Black; 
-      // set de leds 3
-      LEDs[6 + startindex] = CRGB::Black;
-      LEDs[7 + startindex] = CRGB::Black;
-      LEDs[8 + startindex] = CRGB::Black; 
-      // set de leds 4
-      LEDs[9 + startindex] = CRGB::Black;
-      LEDs[10 + startindex] = CRGB::Black;
-      LEDs[11 + startindex] = CRGB::Black; 
-      // set de leds 5
-      LEDs[12 + startindex] = CRGB::Red;
-      LEDs[13 + startindex] = CRGB::Red;
-      LEDs[14 + startindex] = CRGB::Red; 
-      // set de leds 6
-      LEDs[15 + startindex] = CRGB::Red;
-      LEDs[16 + startindex] = CRGB::Red;
-      LEDs[17 + startindex] = CRGB::Red; 
-      // set de leds 7
-      LEDs[18 + startindex] = CRGB::Red;
-      LEDs[19 + startindex] = CRGB::Red;
-      LEDs[20 + startindex] = CRGB::Red;
-      break; 
-    case 8:
-      LEDs[0 + startindex] = CRGB::Red;
-      LEDs[1 + startindex] = CRGB::Red;
-      LEDs[2 + startindex] = CRGB::Red;
-      // set de leds 2
-      LEDs[3 + startindex] = CRGB::Red;
-      LEDs[4 + startindex] = CRGB::Red;
-      LEDs[5 + startindex] = CRGB::Red; 
-      // set de leds 3
-      LEDs[6 + startindex] = CRGB::Red;
-      LEDs[7 + startindex] = CRGB::Red;
-      LEDs[8 + startindex] = CRGB::Red; 
-      // set de leds 4
-      LEDs[9 + startindex] = CRGB::Red;
-      LEDs[10 + startindex] = CRGB::Red;
-      LEDs[11 + startindex] = CRGB::Red; 
-      // set de leds 5
-      LEDs[12 + startindex] = CRGB::Red;
-      LEDs[13 + startindex] = CRGB::Red;
-      LEDs[14 + startindex] = CRGB::Red; 
-      // set de leds 6
-      LEDs[15 + startindex] = CRGB::Red;
-      LEDs[16 + startindex] = CRGB::Red;
-      LEDs[17 + startindex] = CRGB::Red; 
-      // set de leds 7
-      LEDs[18 + startindex] = CRGB::Red;
-      LEDs[19 + startindex] = CRGB::Red;
-      LEDs[20 + startindex] = CRGB::Red;
-      break;
-    case 9:
-      LEDs[0 + startindex] = CRGB::Red;
-      LEDs[1 + startindex] = CRGB::Red;
-      LEDs[2 + startindex] = CRGB::Red;
-      // set de leds 2
-      LEDs[3 + startindex] = CRGB::Red;
-      LEDs[4 + startindex] = CRGB::Red;
-      LEDs[5 + startindex] = CRGB::Red; 
-      // set de leds 3
-      LEDs[6 + startindex] = CRGB::Black;
-      LEDs[7 + startindex] = CRGB::Black;
-      LEDs[8 + startindex] = CRGB::Black; 
-      // set de leds 4
-      LEDs[9 + startindex] = CRGB::Red;
-      LEDs[10 + startindex] = CRGB::Red;
-      LEDs[11 + startindex] = CRGB::Red; 
-      // set de leds 5
-      LEDs[12 + startindex] = CRGB::Red;
-      LEDs[13 + startindex] = CRGB::Red;
-      LEDs[14 + startindex] = CRGB::Red; 
-      // set de leds 6
-      LEDs[15 + startindex] = CRGB::Red;
-      LEDs[16 + startindex] = CRGB::Red;
-      LEDs[17 + startindex] = CRGB::Red; 
-      // set de leds 7
-      LEDs[18 + startindex] = CRGB::Red;
-      LEDs[19 + startindex] = CRGB::Red;
-      LEDs[20 + startindex] = CRGB::Red;
-      break;
-    case 10:
-      LEDs[0 + startindex] = CRGB::Black;
-      LEDs[1 + startindex] = CRGB::Black;
-      LEDs[2 + startindex] = CRGB::Black;
-      // set de leds 2
-      LEDs[3 + startindex] = CRGB::Black;
-      LEDs[4 + startindex] = CRGB::Black;
-      LEDs[5 + startindex] = CRGB::Black; 
-      // set de leds 3
-      LEDs[6 + startindex] = CRGB::Black;
-      LEDs[7 + startindex] = CRGB::Black;
-      LEDs[8 + startindex] = CRGB::Black; 
-      // set de leds 4
-      LEDs[9 + startindex] = CRGB::Black;
-      LEDs[10 + startindex] = CRGB::Black;
-      LEDs[11 + startindex] = CRGB::Black; 
-      // set de leds 5
-      LEDs[12 + startindex] = CRGB::Black;
-      LEDs[13 + startindex] = CRGB::Black;
-      LEDs[14 + startindex] = CRGB::Black; 
-      // set de leds 6
-      LEDs[15 + startindex] = CRGB::Black;
-      LEDs[16 + startindex] = CRGB::Black;
-      LEDs[17 + startindex] = CRGB::Black; 
-      // set de leds 7
-      LEDs[18 + startindex] = CRGB::Black;
-      LEDs[19 + startindex] = CRGB::Black;
-      LEDs[20 + startindex] = CRGB::Black;
-      break;      
-  } 
 }
 
 void displayNumber(byte number, byte segment, CRGB color) {
@@ -470,10 +105,10 @@ void displayNumber(byte number, byte segment, CRGB color) {
       break;    
   }
 
+  String num = numbers[number];
   for (byte i=0; i<21; i++){
-    LEDs[i + startindex] = ((numbers[number] & 1 << i) == 1 << i) ? color : alternateColor;
-    Serial.println(LEDs[i + startindex]);
-  } 
+    LEDs[i + startindex] = (char(num[i]) == '1') ? color : alternateColor;
+  }
 }
 
 //countdown
