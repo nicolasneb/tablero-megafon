@@ -4,37 +4,19 @@
 #define DATA_PIN 6
 #define MILLI_AMPS 2400
 
+//Declaracion de variables globales
 CRGB LEDs[NUM_LEDS];
-
-// Settings
-unsigned long prevTime = 0;
 byte r_val = 255;
 byte g_val = 0;
 byte b_val = 0;
-bool dotsOn = true;
 byte brightness = 255;
-byte clockMode = 0;                           // Clock modes: 0=Clock, 1=Countdown, 2=Temperature, 3=Scoreboard
+CRGB color = CRGB(r_val, g_val, b_val);
 unsigned long countdownMilliSeconds;
-unsigned long endCountDownMillis;           
+unsigned long endCountDownMillis;
+bool primeraEjecucion = true;
 CRGB countdownColor = CRGB::Red;
-byte scoreboardLeft = 0;
-byte scoreboardRight = 0;
-CRGB scoreboardColorLeft = CRGB::Green;
-CRGB scoreboardColorRight = CRGB::Red;
-CRGB alternateColor = CRGB::Black; 
-//String numbers[] = {
-//  "000111111111111111111",  // [0] 0
-//  "000111000000000000111",  // [1] 1
-//  "11111111100011111100",  // [2] 2
-//  "111111111000000111111",  // [3] 3
-//  "111111000111000000111",  // [4] 4
-//  "111000111111000111111",  // [5] 5
-//  "111000111111111111111",  // [6] 6
-//  "000111111000000000111",  // [7] 7
-//  "111111111111111111111",  // [8] 8
-//  "111111111111000111111",  // [9] 9
-//  "000000000000000000000",  // [10] off
-//};
+CRGB alternateColor = CRGB::Black;
+//Matriz que alamacena los numeros como string 
 String numbers[] = {
   "111111111111111111000",  // [0] 0
   "111000000000000111000",  // [1] 1
@@ -51,27 +33,27 @@ String numbers[] = {
 
 void setup() {
   FastLED.addLeds<WS2812B, DATA_PIN, GRB>(LEDs, NUM_LEDS);
-  Serial.begin(9600);  
+  Serial.begin(115200);
+  delay(200);    
   //FastLED.setDither(false);
   //FastLED.setCorrection(TypicalLEDStrip);
 //  FastLED.setMaxPowerInVoltsAndMilliamps(5, MILLI_AMPS);
 //  fill_solid(LEDs, NUM_LEDS, CRGB::Black);
 //  FastLED.show();
-  
-    countdownMilliSeconds = 8000;     
-    byte cd_r_val = 255;
-    byte cd_g_val = 0;
-    byte cd_b_val = 0;
-//    digitalWrite(COUNTDOWN_OUTPUT, LOW);
-    countdownColor = CRGB(cd_r_val, cd_g_val, cd_b_val); 
-    endCountDownMillis = millis() + countdownMilliSeconds;
-    allBlank();
 }
 
 void loop() {
-  CRGB color = CRGB(r_val, g_val, b_val);
-  displayNumber(9,0,color);
-  FastLED.show();
+  //en la primera ejecucion guardo las variables, esto luego tiene que pasar a activarse cuando el usuario lo desee  
+  if(primeraEjecucion){
+    setCountdown();
+    primeraEjecucion = false;
+  } else {
+    updateCountdown();
+    FastLED.show();
+  }
+//  CRGB color = CRGB(r_val, g_val, b_val);
+//  displayNumber(9,0,color);
+//  FastLED.show();
 }
 
 void displayNumber(byte number, byte segment, CRGB color) {
@@ -111,12 +93,21 @@ void displayNumber(byte number, byte segment, CRGB color) {
   }
 }
 
-//countdown
+void setCountdown(){
+  countdownMilliSeconds = int(10000);
+  //5s+10s = 15s
+  //millis() == 15s -> termina la ejecucion del cronometro
+  endCountDownMillis = millis() + countdownMilliSeconds;
+}
+
 void updateCountdown() {
 
   if (countdownMilliSeconds == 0 && endCountDownMillis == 0) 
     return;
-    
+  //tiempo restante en ms = 15s - 7s = 8s
+  //tiempo restante en ms = 15s - 8s = 7s
+  //tiempo restante en ms = 15s - 9s = 6s
+  //tiempo restante en ms = 15s - 15s = 0s
   unsigned long restMillis = endCountDownMillis - millis();
   unsigned long hours   = ((restMillis / 1000) / 60) / 60;
   unsigned long minutes = (restMillis / 1000) / 60;
@@ -143,22 +134,22 @@ void updateCountdown() {
   byte s1 = remSeconds / 10;
   byte s2 = remSeconds % 10;
 
-  CRGB color = countdownColor;
-  if (restMillis <= 60000) {
-    color = CRGB::Red;
-  }
+//  CRGB color = countdownColor;
+//  if (restMillis <= 60000) {
+//    color = CRGB::Red;
+//  }
 
   if (hours > 0) {
     // hh:mm
-    displayNumber(h1,3,color); 
-    displayNumber(h2,2,color);
-    displayNumber(m1,1,color);
+//    displayNumber(h1,3,color); 
+//    displayNumber(h2,2,color);
+//    displayNumber(m1,1,color);
     displayNumber(m2,0,color);  
   } else {
     // mm:ss   
-    displayNumber(m1,3,color);
-    displayNumber(m2,2,color);
-    displayNumber(s1,1,color);
+//    displayNumber(m1,3,color);
+//    displayNumber(m2,2,color);
+//    displayNumber(s1,1,color);
     displayNumber(s2,0,color);  
   }
 
@@ -172,12 +163,4 @@ void updateCountdown() {
 //    digitalWrite(COUNTDOWN_OUTPUT, HIGH);
     return;
   }  
-}
-//end countdown
-
-void allBlank() {
-  for (int i=0; i<NUM_LEDS; i++) {
-    LEDs[i] = CRGB::Black;
-  }
-  FastLED.show();
 }
